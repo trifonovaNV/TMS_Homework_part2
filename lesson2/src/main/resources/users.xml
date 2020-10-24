@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<users>
+    <user Username="nvnadya">
+        <Name>Nadya Trifonova</Name>
+        <Password>11111</Password>
+    </user>
+    <user Username="shilyaev">
+        <Name>Ivan Shilyaev</Name>
+        <Password>12345</Password>
+    </user>
+    <user Username="rakhlina">
+        <Name>Anna Rakhlina</Name>
+        <Password>54321</Password>
+    </user>
+</users>
