@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+      <meta charset="utf-8">
+      <title></title>
+
+      <link rel="stylesheet" type="text/css" href="style.css">
+
+      <script type="text/javascript" src="scripts.js"></script>
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+      <script>
+          $(document).ready(function(){
+              $("#btnSearch").click(function(){
+                      var film = $("#input").val();
+                      
+                      $.ajax({
+                          type: 'GET',
+                          url: 'https://api.themoviedb.org/3/search/movie',
+                          data: {'api_key' : 'cbbdcd420ee8ed64ee6bfc6fbf265eec', 'query' : film},
+                          success: function(films){
+                                xJSON = JSON.stringify(films);
+                              
+                              if (films.results == ''){
+                                  alert("Sorry, there is no such film :(");
+                              }
+
+                                function fBuildTable(oData) {
+                                  var oTBody = document.getElementById('database').tBodies[0];
+                                    
+                                    $.each(films.results, function(number, film){
+                                        var oRow = oTBody.insertRow();
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['title'];
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['adult'];
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['original_language'];
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['overview'];
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['release_date'];
+                                        var oCell = oRow.insertCell();
+                                        oCell.innerHTML = film['vote_average'];
+                                    })
+                                    
+                                  }
+                              
+                               fBuildTable(JSON.parse(xJSON));
+                          },
+                          error: function(error){
+                          console.log(error);
+                          }
+                      });
+                  })
+              
+               $("#btnClear").click(function(){
+                    $("#input").val('');
+                    $("#database").find("tbody").empty();
+                })
+          })
+      </script>
+    </head>
+    <body>
+        <input id="input" type="text" name="" value="" placeholder="Input film" class="mac" >
+        <button id="btnSearch" type="button" name="button" type="submit" class="search">Search</button>
+        <button id="btnClear" type="button" name="button" type="submit" class="clear">Clear</button>
+        <table id="database" align="center" >
+          <thead>
+            <tr>
+                <th>Title</th>
+                <th>Adult</th>
+                <th>Language</th>
+                <th>Overview</th>
+                <th>Release date</th>
+                <th>Vote average</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+    </body>
+</html>
